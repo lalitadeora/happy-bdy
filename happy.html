@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎉 Happy Birthday Terminal 🎂</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Courier New', monospace;
+      background: #000;
+      overflow: hidden;
+      background-image: url(https://img.freepik.com/premium-photo/futuristic-easter-bunnies-neon-light-generative-ai_860599-668.jpg ) ;
+    background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+
+
+
+
+}
+
+    #bgVideo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.5;
+    }
+
+    .terminal {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 900px;
+      color: #33ff33;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 25px #33ff33;
+      border: 2px solid #33ff33;
+      animation: neon-border 1.5s infinite alternate;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 5;
+    }
+
+    @keyframes neon-border {
+      0% { box-shadow: 0 0 10px #33ff33; }
+      100% { box-shadow: 0 0 30px #33ff33, 0 0 60px #33ff33; }
+    }
+
+    .prompt { font-weight: bold; color: #0f0; display: inline; }
+    .typing-text { white-space: pre-wrap; display: inline; overflow: hidden; }
+    .blink-cursor { display: inline; animation: blink 1s step-end infinite; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0 }
+    }
+
+    .cake {
+      color: pink;
+      font-size: 14px;
+      text-align: left;
+      animation: glow 1s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px pink; }
+      to { text-shadow: 0 0 20px pink; }
+    }
+
+    .countdown {
+      font-size: 16px;
+      color: #0f0;
+    }
+
+    audio { display: none; }
+
+    .photo-frame {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      transform: rotate(-5deg);
+      animation: float 3s ease-in-out infinite;
+      z-index: 6;
+    }
+
+    .photo-frame img {
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #33ff33;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: rotate(-5deg) translateY(0); }
+      50% { transform: rotate(-5deg) translateY(-10px); }
+    }
+
+    .handwritten {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      color: #ff69b4;
+      font-family: 'Segoe Script', cursive;
+      font-size: 18px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px 15px;
+      border-radius: 8px;
+      animation: fadeInUp 2s ease-out;
+      z-index: 6;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .surprise-box {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      animation: shake 2s infinite;
+      z-index: 6;
+    }
+
+    .surprise-box img {
+      width: 100px;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(-50%) rotate(0deg); }
+      25% { transform: translateX(-50%) rotate(2deg); }
+      50% { transform: translateX(-50%) rotate(-2deg); }
+      75% { transform: translateX(-50%) rotate(2deg); }
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background: #111;
+      padding: 20px;
+      color: #33ff33;
+      border: 2px solid #33ff33;
+      border-radius: 10px;
+      z-index: 999;
+      box-shadow: 0 0 30px #33ff33;
+      font-size: 18px;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="https://cdn.pixabay.com/vimeo/331820166/fireworks-199005.mp4" type="video/mp4">
+  </video>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Terminal Window -->
+  <div class="terminal">
+    <div class="countdown" id="countdown">⏳ Countdown to midnight...</div>
+    <div>
+      <span class="prompt">$</span>
+      <span class="typing-text" id="type"></span>
+      <span class="blink-cursor">█</span>
+    </div>
+    <pre class="cake" id="cake" style="display:none;">
+       ,   ,   ,   ,   ,   ,   
+      ||||| ||||| ||||| |||||  
+     || HAPPY BIRTHDAY ||      
+      ||||| ||||| ||||| |||||  
+       '   '   '   '   '   '
+    </pre>
+  </div>
+
+  <!-- Friend Image
+  <div class="photo-frame">
+    <img src="https://i.imgur.com/YourFriendPhoto.jpg" alt="Best Friend">
+  </div>
+ -->
+  <!-- Handwritten Note -->
+  <div class="handwritten">
+    "Tu hai sabse khaas... Happy Birthday mere yaar! 💖"
+  </div>
+
+  <!-- Surprise Gift Box 
+  <div class="surprise-box" onclick="showPopup()">
+    <img src="https://cdn-icons-png.flaticon.com/512/1086/1086741.png" alt="Gift Box">
+  </div>
+-->
+  <!-- Popup Message -->
+  <div class="popup" id="popup">
+    🎁 Surprise: A friendship stronger than root access! 💻💚
+  </div>
+
+  <!-- JS -->
+  <script>
+    // Typing Message
+    const textEl = document.getElementById('type');
+    const message = `> Here's a special message from your digital buddy...\n> May your day be filled with joy, madness, cake, and code!\n> H@ppy Birthday! 🧁✨`;
+    let idx = 0;
+
+    function type() {
+      if (idx <= message.length) {
+        textEl.textContent = message.slice(0, idx++);
+      } else {
+        clearInterval(interval);
+        document.getElementById("cake").style.display = "block";
+        startConfetti();
+      }
+    }
+
+    const interval = setInterval(type, 50);
+
+    // Countdown to midnight
+    function updateCountdown() {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+      const diff = midnight - now;
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('countdown').textContent =
+        `⏳ ${h}h ${m}m ${s}s to midnight birthday magic!`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Popup Surprise
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
+
+    // Confetti Animation
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiPieces = [];
+
+    function resizeCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createConfetti() {
+      for (let i = 0; i < 150; i++) {
+        confettiPieces.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+          size: Math.random() * 5 + 2,
+          speed: Math.random() * 3 + 1,
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`
+        });
+      }
+    }
+
+    function drawConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiPieces.forEach(p => {
+        confettiCtx.fillStyle = p.color;
+        confettiCtx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+        if (p.y > confettiCanvas.height) p.y = -10;
+      });
+    }
+
+    function startConfetti() {
+      createConfetti();
+      setInterval(drawConfetti, 30);
+    }
+  </script>
+</body>
+</html>
