@@ -229,12 +229,36 @@
   <div class="popup" id="popup">
     🎁 Surprise: A friendship stronger than root access! 💻💚
   </div>
-<audio autoplay loop>
-    <source src="/img/WhatsApp Audio 2025-07-26 at 11.05.05 PM.mpeg" type="audio/mpeg">
-   
-  </audio>
+
+
+  <!-- Audio Element -->
+  <audio id="myAudio" src="/animation//audio//WhatsApp Audio 2025-07-26 at 11.04.30 PM.mpeg"></audio>
+
+  <!-- Control Buttons -->
+  <button onclick="playAudio()">Play Audio</button>
+  <button onclick="pauseAudio()">Pause Audio</button>
+
   <!-- JS -->
   <script>
+  
+    const audio = document.getElementById("myAudio");
+
+    // Try to autoplay when page reloads
+    window.addEventListener("load", function () {
+      audio.play().catch(function(error) {
+        console.log("Autoplay blocked by browser:", error);
+      });
+    });
+
+    function playAudio() {
+      audio.play();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+    }
+ 
+
     // Typing Message
     const textEl = document.getElementById('type');
     const message = `> 
